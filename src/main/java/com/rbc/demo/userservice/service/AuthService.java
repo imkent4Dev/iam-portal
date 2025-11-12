@@ -2,7 +2,6 @@
 package com.rbc.demo.userservice.service;
 
 import com.rbc.demo.userservice.dto.*;
-import com.rbc.demo.userservice.model.Permission;
 import com.rbc.demo.userservice.model.Role;
 import com.rbc.demo.userservice.model.User;
 import com.rbc.demo.userservice.repository.RoleRepository;

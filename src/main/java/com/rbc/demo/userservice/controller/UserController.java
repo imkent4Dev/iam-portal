@@ -1,13 +1,16 @@
 // UserController.java
 package com.rbc.demo.userservice.controller;
 
+import com.rbc.demo.userservice.dto.CreateUserRequest;
 import com.rbc.demo.userservice.dto.UserResponse;
 import com.rbc.demo.userservice.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -33,6 +36,23 @@ public class UserController {
     @PreAuthorize("hasAuthority('USER_READ')")
     public ResponseEntity<UserResponse> getUserByUsername(@PathVariable String username) {
         return ResponseEntity.ok(userService.getUserByUsername(username));
+    }
+    
+    // NEW: Create User Endpoint
+    @PostMapping
+    @PreAuthorize("hasAuthority('USER_CREATE')")
+    public ResponseEntity<UserResponse> createUser(@Valid @RequestBody CreateUserRequest request) {
+        UserResponse user = userService.createUser(
+            request.getUsername(),
+            request.getPassword(),
+            request.getEmail(),
+            request.getFirstName(),
+            request.getLastName(),
+            request.getName(),
+            request.getNid(),
+            request.getPhone()
+        );
+        return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
     
     @PostMapping("/{id}/roles/{roleName}")

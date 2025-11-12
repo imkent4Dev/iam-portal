@@ -24,10 +24,21 @@ public class CreateUserRequest {
     private String password;
     
     @NotBlank(message = "Email is required")
-    @Email(message = "Email should be valid")
+    @Email(message = "Email must be valid")
     private String email;
     
     private String firstName;
     
     private String lastName;
+    
+    @NotBlank(message = "Name is required")
+    @Size(max = 50, message = "Name must be less than 50 characters")
+    private String name;
+    
+    @NotBlank(message = "NID is required")
+    private String nid;
+    
+    @NotBlank(message = "Phone is required")
+    @Size(max = 15, message = "Phone must be less than 15 characters")
+    private String phone;
 }
